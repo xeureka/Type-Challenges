@@ -16,4 +16,3 @@ const todo: MyReadonly<Todo> = {
     title: "Hey",
     description: "Foobar"
 }
-
