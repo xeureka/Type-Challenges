@@ -1,3 +1,2 @@
-
 // expected to be string
-type HelloWorld = string
+type HelloWorld = string;
