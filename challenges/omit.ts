@@ -1,17 +1,12 @@
-// Implement the built in Omit<T,K> generic w/out using it
-// constructure a type by picking all properies from T and then remving K
+type MyOmit<T, V extends keyof T> = {
+  [K in keyof T as K extends V ? never : K]: T[K];
+};
 
 interface Todo {
   title: string;
   description: string;
   completed: boolean;
 }
-
-// type MyOmit<T, K extends keyof T> = { [P in Exclude<keyof T, K>]: T[P] };
-
-type MyOmit<T, K extends keyof T> = {
-  [P in keyof T as P extends K ? never : P]: T[P];
-};
 
 type TodoPreview = MyOmit<Todo, "description" | "title">;
 
