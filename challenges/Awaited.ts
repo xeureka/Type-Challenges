@@ -2,6 +2,7 @@
 
 type ExampleType = Promise<string>;
 
-type MyAwaited<A> = A extends Promise<infer T> ? T : never;
+//type MyAwaited<A> = A extends Promise<infer T> ? T : never;
+type MyAwaited<T extends PromiseLike<any>> = Awaited<T>;
 
 type Result = MyAwaited<ExampleType>; // string

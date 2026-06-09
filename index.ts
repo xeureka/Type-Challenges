@@ -77,3 +77,18 @@ type spaceXLength = Length<spaceX>; // expected 5
 type MyExclude<T, U extends T> = T extends U ? never : T;
 
 type Result = MyExclude<"a" | "b" | "c", "a">; // 'b' | 'c'
+
+// Awaited
+
+type MyAwaited<T extends PromiseLike<any>> = Awaited<T>;
+
+type ExampleType = Promise<Promise<number>>;
+
+type Result = MyAwaited<ExampleType>; // string
+
+// IF
+
+type If<C, T, F> = C extends true ? T : F;
+
+type A = If<true, "a", "b">; // expected to be 'a'
+type B = If<false, "a", "b">; // expected to be 'b'
