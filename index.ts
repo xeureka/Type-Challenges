@@ -92,3 +92,25 @@ type If<C, T, F> = C extends true ? T : F;
 
 type A = If<true, "a", "b">; // expected to be 'a'
 type B = If<false, "a", "b">; // expected to be 'b'
+
+// Concact 
+
+type Concat<A extends any[], B extends any[]> = [...A,...B]
+
+type Result = Concat<[1], [2]> // expected to be [1, 2]
+
+// Includes
+
+
+type Includes<T extends any[], V> = {
+    [P in T[number]]:true
+}[v] ? true:false;
+
+type isPillarMen = Includes<['Kars', 'Esidisi', 'Wamuu', 'Santana'], 'Dio'> // expected to be `false`
+
+// Push 
+
+type Push<T extends any[], V> = [...T,V]
+
+
+type Result = Push<[1, 2], '3'> // [1, 2, '3']
