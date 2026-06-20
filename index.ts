@@ -114,3 +114,30 @@ type Push<T extends any[], V> = [...T,V]
 
 
 type Result = Push<[1, 2], '3'> // [1, 2, '3']
+
+// Unshift 
+type Unshift<T extends any[], V> = [V,...T]
+type Result = Unshift<[1, 2], 0> // [0, 1, 2]
+
+// Parameters 
+
+type MyParameters<T extends (...args: any) => any> = T extends (...args: infer p) => any ? p:never;
+
+
+const foo = (arg1: string, arg2: number): void => {}
+
+type FunctionParamsType = MyParameters<typeof foo> // [arg1: string, arg2: number]
+
+// Get Return Type 
+
+
+type MyReturnType <T extends (...args: any) => any> = T extends (...args: any) => infer R ? R: never;
+
+const fn = (v: boolean) => {
+  if (v)
+    return 1
+  else
+    return 2
+}
+
+type a = MyReturnType<typeof fn> // should be "1 | 2"
