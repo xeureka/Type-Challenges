@@ -141,3 +141,43 @@ const fn = (v: boolean) => {
 }
 
 type a = MyReturnType<typeof fn> // should be "1 | 2"
+
+// Omit 
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+type MyOmit<T, V extends keyof T> = {
+    [K in keyof T as K extends V ? never: K]: T[K]
+}
+
+type TodoPreview = MyOmit<Todo, 'description' | 'title'>
+
+const todo: TodoPreview = {
+  completed: false,
+}
+
+// Readonly 2
+interface Todo {
+  title: string
+  description: string
+  completed: boolean
+}
+
+type MyReadonly2<T,V extends keyof T> = {
+    readonly [K in keyof T as K extends V ? K:never]: T[K]
+} & {
+    [K in keyof T as K extends V ? never: K]: T[K]
+}
+
+const todo: MyReadonly2<Todo, 'title' | 'description'> = {
+  title: "Hey",
+  description: "foobar",
+  completed: false,
+}
+
+todo.title = "Hello" // Error: cannot reassign a readonly property
+todo.description = "barFoo" // Error: cannot reassign a readonly property
+todo.completed = true // Oi
