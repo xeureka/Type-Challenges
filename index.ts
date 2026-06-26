@@ -181,3 +181,23 @@ const todo: MyReadonly2<Todo, 'title' | 'description'> = {
 todo.title = "Hello" // Error: cannot reassign a readonly property
 todo.description = "barFoo" // Error: cannot reassign a readonly property
 todo.completed = true // Oi
+
+// Tuple to Union 
+
+type Arr = ['1', '2', '3']
+
+
+type TupleToUnion<T extends readonly any[]> = 
+    T extends Array<infer R> ? R:never;
+
+
+type Test = TupleToUnion<Arr> // expected to be '1' | '2' | '3'
+
+// Last of Array 
+type arr1 = ['a', 'b', 'c']
+type arr2 = [3, 2, 1]
+
+type Last< T extends (string | number)[]> = T extends [...infer A, infer L] ? L:never;
+
+type tail1 = Last<arr1> // expected to be 'c'
+type tail2 = Last<arr2> // expected to be 1
